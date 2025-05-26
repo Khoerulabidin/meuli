@@ -21,7 +21,7 @@ return new class extends Migration
             $table->timestamp('inv_mstr_time')->nullable();
             $table->json('inv_mstr_cust')->nullable();
             $table->string('inv_mstr_table')->nullable();
-            $table->string('inv_mstr_type ')->nullable();
+            $table->string('inv_mstr_type')->nullable();
             $table->boolean('inv_mstr_status')->default(1);
             $table->string('inv_mstr_inv')->nullable();
             $table->decimal('inv_mstr_disc', 18, 6)->nullable();

@@ -19,7 +19,7 @@ return new class extends Migration
             $table->timestamp('co_mstr_time')->nullable();
             $table->json('co_mstr_cust')->nullable();
             $table->string('co_mstr_table')->nullable();
-            $table->string('co_mstr_type ')->nullable();
+            $table->string('co_mstr_type')->nullable();
             $table->boolean('co_mstr_status')->default(1);
             $table->string('co_mstr_inv')->nullable();
             $table->decimal('co_mstr_disc', 18, 6)->nullable();
