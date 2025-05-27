@@ -46,5 +46,7 @@ class DatabaseSeeder extends Seeder
             'user_mstr_status' => 1,
             'user_mstr_branch' => '1',
         ]);
+
+        $this->call(CodeMstrSeeder::class);
     }
 }

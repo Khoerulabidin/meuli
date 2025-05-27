@@ -123,4 +123,14 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    'inputForm' => 'form-control border rounded',
+    'btnSmallPrimary' => 'btn btn-small btn-primary rounded',
+    'btnSmallSecondary' => 'btn btn-small btn-secondary rounded',
+    'btnSmallSuccess' => 'btn btn-small btn-success rounded',
+    'btnSmallDanger' => 'btn btn-small btn-danger rounded',
+    'btnSmallWarning' => 'btn btn-small btn-warning rounded',
+    'btnSmallInfo' => 'btn btn-small btn-info rounded',
+    'btnSmallLight' => 'btn btn-small btn-light rounded',
+    'btnSmallDark' => 'btn btn-small btn-dark rounded',
+
 ];
