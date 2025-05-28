@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CodeMstrController;
+use App\Http\Controllers\BranchMstrController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -21,6 +22,9 @@ Route::middleware('auth')->group(function () {
     Route::resource('CodeMstrs', CodeMstrController::class);
     Route::get('CodeMstrList', [CodeMstrController::class, 'index'])->name('CodeMstrList');
     Route::get('CodeMstr/{codemasterId}/delete', [App\Http\Controllers\CodeMstrController::class, 'destroy']);
+
+    // Branch Master
+    Route::resource('BranchMstrs', BranchMstrController::class);
 });
 
 
