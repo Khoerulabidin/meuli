@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('price_mstr', function (Blueprint $table) {
             $table->bigIncrements('price_mstr_id');
             $table->uuid('price_mstr_uuid')->unique()->nullable();
+            $table->string('price_mstr_item')->nullable();
+            $table->string('price_mstr_um')->nullable();
             $table->string('price_mstr_nbr')->nullable();
             $table->decimal('price_mstr_cost', 18, 6)->nullable();
             $table->date('price_mstr_start')->nullable();

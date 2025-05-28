@@ -108,6 +108,7 @@
     <!-- Need: Apexcharts -->
     <script src="{{ url('assets/extensions/apexcharts/apexcharts.min.js') }}"></script>
     <script src="{{ url('assets/static/js/pages/dashboard.js') }}"></script>
+    @stack('scripts')
 </body>
 
 </html>
