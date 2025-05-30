@@ -3,6 +3,7 @@
 use App\Http\Controllers\CodeMstrController;
 use App\Http\Controllers\BranchMstrController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TableMstrController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -21,10 +22,19 @@ Route::middleware('auth')->group(function () {
     // code master
     Route::resource('CodeMstrs', CodeMstrController::class);
     Route::get('CodeMstrList', [CodeMstrController::class, 'index'])->name('CodeMstrList');
+
     Route::get('CodeMstr/{codemasterId}/delete', [App\Http\Controllers\CodeMstrController::class, 'destroy']);
 
     // Branch Master
     Route::resource('BranchMstrs', BranchMstrController::class);
+
+    Route::get('CodeMstr/{codemasterId}/delete', [CodeMstrController::class, 'destroy']);
+
+    // table master
+    Route::resource('TableMstrs', TableMstrController::class);
+    Route::get('TableMstrList', [TableMstrController::class, 'index'])->name('TableMstrList');
+    Route::get('TableMstr/{codemasterId}/delete', [TableMstrController::class, 'destroy']);
+
 });
 
 

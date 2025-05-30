@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class BranchMstr extends Model
 {
@@ -16,7 +17,6 @@ class BranchMstr extends Model
     const UPDATED_AT = 'branch_mstr_ut';
 
     protected $fillable = [
-        'branch_mstr_uuid',
         'branch_mstr_name',
         'branch_mstr_joined',
         'branch_mstr_addr1',
@@ -29,7 +29,18 @@ class BranchMstr extends Model
         'branch_mstr_sosmed2',
         'branch_mstr_sosmed3',
         'branch_mstr_sosmed4',
+
+        'branch_mstr_img',
         'branch_mstr_profile',
         'branch_mstr_cb',
+        'branch_mstr_uuid',
     ];
+
+    public static function boot()
+    {
+        parent::boot();
+        static::creating(function ($model) {
+            $model->branch_mstr_uuid = Str::uuid();
+        });
+    }
 }
