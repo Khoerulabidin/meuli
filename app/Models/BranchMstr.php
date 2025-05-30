@@ -25,10 +25,10 @@ class BranchMstr extends Model
         'branch_mstr_fax',
         'branch_mstr_email',
         'branch_mstr_pic',
-        'branch_mstr_sosmed1',
-        'branch_mstr_sosmed2',
-        'branch_mstr_sosmed3',
-        'branch_mstr_sosmed4',
+        'branch_mstr_sosmed1', //instagram
+        'branch_mstr_sosmed2', //facebook
+        'branch_mstr_sosmed3', //X
+        'branch_mstr_sosmed4', //tiktok
 
         'branch_mstr_img',
         'branch_mstr_profile',

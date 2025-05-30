@@ -66,9 +66,6 @@
                 <li class="submenu-item">
                     <a href="{{ route('BranchMstrs.index') }}" class="submenu-link">Branch Master</a>
                 </li>
-            </ul>
-
-            <ul class="submenu">
                 <li class="submenu-item">
                     <a href="{{ route('CodeMstrList') }}" class="submenu-link">Code Master</a>
                 </li>
@@ -76,6 +73,7 @@
                     <a href="{{ route('TableMstrList') }}" class="submenu-link">Table Master</a>
                 </li>
             </ul>
+        </li>
 
 
         <li class="sidebar-item has-sub">

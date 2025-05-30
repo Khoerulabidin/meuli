@@ -12,12 +12,12 @@
                 <div
                     class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center">
                     <div class="mb-2 mb-md-2">
-                        <h3 class="mb-0">List of Code Master</h3>
+                        <h3 class="mb-0">List of Branch Master</h3>
                     </div>
                     <div class="ms-md-auto">
                         <nav aria-label="breadcrumb" class="breadcrumb-header">
                             <ol class="breadcrumb mb-0">
-                                {{-- @foreach ($breadcrumbs ?? [] as $breadcrumb)
+                                @foreach ($breadcrumbs ?? [] as $breadcrumb)
                                     <li class="breadcrumb-item {{ empty($breadcrumb['url']) ? 'active' : '' }}">
                                         @if (empty($breadcrumb['url']))
                                             {{ $breadcrumb['name'] }}
@@ -25,7 +25,7 @@
                                             <a href="{{ $breadcrumb['url'] }}">{{ $breadcrumb['name'] }}</a>
                                         @endif
                                     </li>
-                                @endforeach --}}
+                                @endforeach
                             </ol>
                         </nav>
                     </div>
@@ -51,46 +51,62 @@
                             <table class="table table-striped table-hover table-bordered" id="table1">
                                 <thead class="table-light">
                                     <tr>
-                                        <th>fldname</th>
-                                        <th>value</th>
-                                        <th>cmmt</th>
-                                        <th>cmmt2</th>
+                                        <th>name</th>
+                                        <th>joined</th>
+                                        <th>telp</th>
+                                        <th>email</th>
+                                        <th>joined</th>
                                         <th>created by</th>
-                                        <th>branch</th>
+                                        <th>address</th>
                                         <th>action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {{-- @foreach ($codeMstrs as $r)
+                                    @foreach ($branchMstrs as $r)
                                         <tr>
-                                            <td>{{ $r->code_mstr_fldname }}</td>
-                                            <td>{{ $r->code_mstr_value }}</td>
-                                            <td>{{ $r->code_mstr_cmmt }}</td>
-                                            <td>{{ $r->code_mstr_cmmt2 }}</td>
-                                            <td>{{ $r->userMstr->user_mstr_name }}</td>
-                                            <td>{{ $r->code_mstr_branch }}</td>
+                                            <td>{{ $r->branch_mstr_name }}</td>
+                                            <td>{{ $r->branch_mstr_telp }}</td>
+                                            <td>{{ $r->branch_mstr_fax }}</td>
+                                            <td>{{ $r->branch_mstr_email }}</td>
+                                            <td>{{ $r->branch_mstr_joined }}</td>
+                                            <td>{{ $r->branch_mstr_cb }}</td>
+                                            {{-- <td>{{ $r->userMstr->user_mstr_name }}</td> --}}
+                                            <td>{{ $r->branch_mstr_addr1 }}</td>
                                             <td>
                                                 <div class="btn-group" role="group" aria-label="Basic action">
                                                     <button class="btn btn-sm btn-outline-primary editButton"
-                                                        data-id="{{ $r->code_mstr_id }}"
-                                                        data-fldname="{{ $r->code_mstr_fldname }}"
-                                                        data-value="{{ $r->code_mstr_value }}"
-                                                        data-cmmt="{{ $r->code_mstr_cmmt }}"
-                                                        data-cmmt2="{{ $r->code_mstr_cmmt2 }}"
-                                                        data-url="{{ url('CodeMstrs/' . $r->code_mstr_id) }}"
+                                                        data-id="{{ $r->branch_mstr_id }}"
+                                                        data-joined="{{ $r->branch_mstr_joined }}"
+                                                        data-name="{{ $r->branch_mstr_name }}"
+                                                        data-addr1="{{ $r->branch_mstr_addr1 }}"
+                                                        data-addr2="{{ $r->branch_mstr_addr2 }}"
+                                                        data-telp="{{ $r->branch_mstr_telp }}"
+                                                        data-fax="{{ $r->branch_mstr_fax }}"
+                                                        data-email="{{ $r->branch_mstr_email }}"
+                                                        data-pic="{{ $r->branch_mstr_pic }}"
+                                                        data-sosmed1="{{ $r->branch_mstr_sosmed1 }}"
+                                                        data-sosmed2="{{ $r->branch_mstr_sosmed2 }}"
+                                                        data-sosmed3="{{ $r->branch_mstr_sosmed3 }}"
+                                                        data-sosmed4="{{ $r->branch_mstr_sosmed4 }}"
+                                                        data-url="{{ route('BranchMstrs.update', $r->branch_mstr_id) }}"
                                                         data-bs-toggle="modal" data-bs-target="#editModal">
                                                         <i class="bi bi-pencil-square"></i> Edit
                                                     </button>
 
-                                                    <a href="{{ url('CodeMstr/' . $r->code_mstr_id . '/delete') }}"
-                                                        class="btn btn-sm btn-outline-danger deleteButton"
-                                                        onclick="return confirm('Are you sure you want to delete this item?')">
-                                                        <i class="bi bi-trash"></i> Delete
-                                                    </a>
+
+                                                    <form method="POST" action="{{ route('BranchMstrs.destroy', $r->branch_mstr_id) }}" style="display:inline;">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button
+                                                            class="btn btn-sm btn-outline-danger deleteButton"
+                                                            onclick="return confirm('Are you sure you want to delete this item?')">
+                                                            <i class="bi bi-trash"></i> Delete
+                                                        </button>
+                                                    </form>
                                                 </div>
                                             </td>
                                         </tr>
-                                    @endforeach --}}
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -115,50 +131,117 @@
     {{-- modal add branch Master --}}
     <form action="{{ route('BranchMstrs.store') }}" method="post" autocomplete="off">
         @csrf
-        <div class="modal fade" id="modalAddbranch" tabindex="-1" role="dialog" aria-labelledby="modalAddCodeTitle"
+        <div class="modal fade" id="modalAddbranch" tabindex="-1" role="dialog" aria-labelledby="modalAddBranchTitle"
             aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLongTitle">Add Code Master</h5>
+                        <h5 class="modal-title" id="exampleModalLongTitle">Add Branch Master</h5>
                         <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
                         <div class="row mb-4">
-                            <div class="col-sm-12 col-md-6">
-                                <label for="code_mstr_fldname" class="form-label">
-                                    fldname
+                            <div class="col-sm-12 col-md-4">
+                                <label for="branch_mstr_name" class="form-label">
+                                    Name
                                 </label>
-
-                                <input type="text" name="code_mstr_fldname" id="code_mstr_fldname"
+                                <input type="text" name="branch_mstr_name" id="branch_mstr_name"
                                     class="{!! Config('app.inputForm') !!}" placeholder="" required=""
-                                    value="{{ old('code_mstr_fldname') }}">
+                                    value="{{ old('branch_mstr_name') }}" required>
                             </div>
-                            <div class="col-sm-12 col-md-6">
-                                <label for="code_mstr_value" class="form-label">
-                                    value
+                            <div class="col-sm-12 col-md-4">
+                                <label for="branch_mstr_joined" class="form-label">
+                                    Joined
                                 </label>
-                                <input type="text" name="code_mstr_value" id="code_mstr_value"
+                                <input type="date" name="branch_mstr_joined" id="branch_mstr_joined"
                                     class="{!! Config('app.inputForm') !!}" placeholder="" required=""
-                                    value="{{ old('code_mstr_value') }}">
+                                    value="{{ old('branch_mstr_joined') }}" required>
                             </div>
-                            <div class="col-sm-12 col-md-6">
-                                <label for="code_mstr_cmmt" class="form-label">
-                                    cmmt
+                            <div class="col-sm-12 col-md-4">
+                                <label for="branch_mstr_telp" class="form-label">
+                                    Telp
                                 </label>
-                                <input type="text" name="code_mstr_cmmt" id="code_mstr_cmmt"
+                                <input type="text" name="branch_mstr_telp" id="branch_mstr_telp"
                                     class="{!! Config('app.inputForm') !!}" placeholder="" required=""
-                                    value="{{ old('code_mstr_cmmt') }}">
+                                    value="{{ old('branch_mstr_telp') }}" required>
                             </div>
-                            <div class="col-sm-12 col-md-6">
-                                <label for="code_mstr_cmmt2" class="form-label">
-                                    cmmt2
+                            <div class="col-sm-12 col-md-4">
+                                <label for="branch_mstr_fax" class="form-label">
+                                    Fax
                                 </label>
-                                <input type="text" name="code_mstr_cmmt2" id="code_mstr_cmmt2"
+                                <input type="text" name="branch_mstr_fax" id="branch_mstr_fax"
+                                    class="{!! Config('app.inputForm') !!}" placeholder="" required=""
+                                    value="{{ old('branch_mstr_fax') }}" required>
+                            </div>
+                            <div class="col-sm-12 col-md-4">
+                                <label for="branch_mstr_email" class="form-label">
+                                    Email
+                                </label>
+                                <input type="text" name="branch_mstr_email" id="branch_mstr_email"
                                     class="{!! Config('app.inputForm') !!}" placeholder=""
-                                    value="{{ old('code_mstr_cmmt2') }}">
+                                    value="{{ old('branch_mstr_email') }}" required>
+                            </div>
+                            <div class="col-sm-12 col-md-4">
+                                <label for="branch_mstr_pic" class="form-label">
+                                    PIC
+                                </label>
+                                <input type="text" name="branch_mstr_pic" id="branch_mstr_pic"
+                                    class="{!! Config('app.inputForm') !!}" placeholder=""
+                                    value="{{ old('branch_mstr_pic') }}" required>
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col-sm-12 col-md-6">
+                                <label for="branch_mstr_sosmed1" class="form-label">
+                                    Instagram
+                                </label>
+                                <input type="text" name="branch_mstr_sosmed1" id="branch_mstr_sosmed1"
+                                    class="{!! Config('app.inputForm') !!}" placeholder=""
+                                    value="{{ old('branch_mstr_sosmed1') }}" required>
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                <label for="branch_mstr_sosmed2" class="form-label">
+                                    Facebook
+                                </label>
+                                <input type="text" name="branch_mstr_sosmed2" id="branch_mstr_sosmed2"
+                                    class="{!! Config('app.inputForm') !!}" placeholder=""
+                                    value="{{ old('branch_mstr_sosmed2') }}" required>
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col-sm-12 col-md-6">
+                                <label for="branch_mstr_sosmed3" class="form-label">
+                                    X
+                                </label>
+                                <input type="text" name="branch_mstr_sosmed3" id="branch_mstr_sosmed3"
+                                    class="{!! Config('app.inputForm') !!}" placeholder=""
+                                    value="{{ old('branch_mstr_sosmed3') }}" required>
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                <label for="branch_mstr_sosmed4" class="form-label">
+                                    Tiktok
+                                </label>
+                                <input type="text" name="branch_mstr_sosmed4" id="branch_mstr_sosmed4"
+                                    class="{!! Config('app.inputForm') !!}" placeholder=""
+                                    value="{{ old('branch_mstr_sosmed4') }}" required>
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col-sm-12 col-md-6">
+                                <label for="branch_mstr_addr1" class="form-label">
+                                    Address 1
+                                </label>
+                                <textarea class="{!! Config('app.inputForm') !!}" name="branch_mstr_addr1" 
+                                    id="branch_mstr_addr1" cols="30" rows="3" value="{{ old('branch_mstr_addr1') }}" required></textarea>
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                <label for="branch_mstr_addr2" class="form-label">
+                                    Address 2
+                                </label>
+                                <textarea class="{!! Config('app.inputForm') !!}" name="branch_mstr_addr2" 
+                                    id="branch_mstr_addr2" cols="30" rows="3" value="{{ old('branch_mstr_addr2') }}"></textarea>
                             </div>
                         </div>
                     </div>
@@ -172,47 +255,99 @@
     </form>
 
     <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-xl modal-dialog-centered">
             <div class="modal-content">
                 <form id="editForm" method="POST">
                     @csrf
                     @method('PUT')
                     <div class="modal-header">
-                        <h5 class="modal-title" id="editModalLabel">Edit Code Master</h5>
+                        <h5 class="modal-title" id="editModalLabel">Edit Branch Master</h5>
                         <button type="button" class="btn btn-small btn-close" data-bs-dismiss="modal"
                             aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <div class="row mb-4">
-                            <div class="col-sm-12 col-md-6">
-                                <label for="ef_fldname" class="form-label">
-                                    fldname
+                            <div class="col-sm-12 col-md-4">
+                                <label for="branch_mstr_name" class="form-label">
+                                    Name
                                 </label>
-
-                                <input type="text" name="ef_fldname" id="ef_fldname"
+                                <input type="text" name="branch_mstr_name" id="ef_name"
                                     class="{!! Config('app.inputForm') !!}" placeholder="" required=""
-                                    value="{{ old('ef_fldname') }}">
+                                    value="{{ old('branch_mstr_name') }}" required>
+                            </div>
+                            <div class="col-sm-12 col-md-4">
+                                <label for="branch_mstr_joined" class="form-label">
+                                    Joined
+                                </label>
+                                <input type="date" name="branch_mstr_joined" id="ef_joined"
+                                    class="{!! Config('app.inputForm') !!}" placeholder="" required=""
+                                    value="{{ old('branch_mstr_joined') }}" required>
+                            </div>
+                            <div class="col-sm-12 col-md-4">
+                                <label for="branch_mstr_telp" class="form-label">
+                                    Telp
+                                </label>
+                                <input type="text" name="branch_mstr_telp" id="ef_telp"
+                                    class="{!! Config('app.inputForm') !!}" placeholder="" required=""
+                                    value="{{ old('branch_mstr_telp') }}" required>
+                            </div>
+                            <div class="col-sm-12 col-md-4">
+                                <label for="branch_mstr_fax" class="form-label">
+                                    Fax
+                                </label>
+                                <input type="text" name="branch_mstr_fax" id="ef_fax"
+                                    class="{!! Config('app.inputForm') !!}" placeholder="" required=""
+                                    value="{{ old('branch_mstr_fax') }}" required>
+                            </div>
+                            <div class="col-sm-12 col-md-4">
+                                <label for="branch_mstr_email" class="form-label">
+                                    Email
+                                </label>
+                                <input type="text" name="branch_mstr_email" id="ef_email"
+                                    class="{!! Config('app.inputForm') !!}" placeholder=""
+                                    value="{{ old('branch_mstr_email') }}" required>
+                            </div>
+                            <div class="col-sm-12 col-md-4">
+                                <label for="branch_mstr_pic" class="form-label">
+                                    PIC
+                                </label>
+                                <input type="text" name="branch_mstr_pic" id="ef_pic"
+                                    class="{!! Config('app.inputForm') !!}" placeholder=""
+                                    value="{{ old('branch_mstr_pic') }}" required>
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col-sm-12 col-md-6">
+                                <label for="branch_mstr_sosmed3" class="form-label">
+                                    X
+                                </label>
+                                <input type="text" name="branch_mstr_sosmed3" id="ef_sosmed3"
+                                    class="{!! Config('app.inputForm') !!}" placeholder=""
+                                    value="{{ old('branch_mstr_sosmed3') }}" required>
                             </div>
                             <div class="col-sm-12 col-md-6">
-                                <label for="ef_value" class="form-label">
-                                    value
+                                <label for="branch_mstr_sosmed4" class="form-label">
+                                    Tiktok
                                 </label>
-                                <input type="text" name="ef_value" id="ef_value" class="{!! Config('app.inputForm') !!}"
-                                    placeholder="" required="" value="{{ old('ef_value') }}">
+                                <input type="text" name="branch_mstr_sosmed4" id="ef_sosmed4"
+                                    class="{!! Config('app.inputForm') !!}" placeholder=""
+                                    value="{{ old('branch_mstr_sosmed4') }}" required>
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col-sm-12 col-md-6">
+                                <label for="branch_mstr_addr1" class="form-label">
+                                    Address 1
+                                </label>
+                                <textarea class="{!! Config('app.inputForm') !!}" name="branch_mstr_addr1" 
+                                    id="ef_addr1" cols="30" rows="3" required>{{ old('branch_mstr_addr1') }}</textarea>
                             </div>
                             <div class="col-sm-12 col-md-6">
-                                <label for="ef_cmmt" class="form-label">
-                                    cmmt
+                                <label for="branch_mstr_addr2" class="form-label">
+                                    Address 2
                                 </label>
-                                <input type="text" name="ef_cmmt" id="ef_cmmt" class="{!! Config('app.inputForm') !!}"
-                                    placeholder="" required="" value="{{ old('ef_cmmt') }}">
-                            </div>
-                            <div class="col-sm-12 col-md-6">
-                                <label for="ef_cmmt2" class="form-label">
-                                    cmmt2
-                                </label>
-                                <input type="text" name="ef_cmmt2" id="ef_cmmt2" class="{!! Config('app.inputForm') !!}"
-                                    placeholder="" value="{{ old('ef_cmmt2') }}">
+                                <textarea class="{!! Config('app.inputForm') !!}" name="branch_mstr_addr2" 
+                                    id="ef_addr2" cols="30" rows="3">{{ old('branch_mstr_addr2') }}</textarea>
                             </div>
                         </div>
                     </div>
@@ -233,16 +368,32 @@
                 console.log("Edit button clicked");
                 const id = $(this).data("id");
                 const url = $(this).data("url");
-                const fldname = $(this).data("fldname");
-                const value = $(this).data("value");
-                const cmmt = $(this).data("cmmt");
-                const cmmt2 = $(this).data("cmmt2");
+                const name = $(this).data("name");
+                const joined = $(this).data("joined");
+                const addr1 = $(this).data("addr1");
+                const addr2 = $(this).data("addr2");
+                const telp = $(this).data("telp");
+                const fax = $(this).data("fax");
+                const email = $(this).data("email");
+                const pic = $(this).data("pic");
+                const sosmed1 = $(this).data("sosmed1");
+                const sosmed2 = $(this).data("sosmed2");
+                const sosmed3 = $(this).data("sosmed3");
+                const sosmed4 = $(this).data("sosmed4");
 
                 // $("#editForm #id").val(id ? id : "");
-                $("#editForm #ef_fldname").val(fldname ? fldname : "");
-                $("#editForm #ef_value").val(value ? value : "");
-                $("#editForm #ef_cmmt").val(cmmt ? cmmt : "");
-                $("#editForm #ef_cmmt2").val(cmmt2 ? cmmt2 : "");
+                $("#editForm #ef_name").val(name ? name : "");
+                $("#editForm #ef_joined").val(joined ? joined : "");
+                $("#editForm #ef_addr1").val(addr1 ? addr1 : "");
+                $("#editForm #ef_addr2").val(addr2 ? addr2 : "");
+                $("#editForm #ef_telp").val(telp ? telp : "");
+                $("#editForm #ef_fax").val(fax ? fax : "");
+                $("#editForm #ef_email").val(email ? email : "");
+                $("#editForm #ef_pic").val(pic ? pic : "");
+                $("#editForm #ef_sosmed1").val(sosmed1 ? sosmed1 : "");
+                $("#editForm #ef_sosmed2").val(sosmed2 ? sosmed2 : "");
+                $("#editForm #ef_sosmed3").val(sosmed3 ? sosmed3 : "");
+                $("#editForm #ef_sosmed4").val(sosmed4 ? sosmed4 : "");
 
                 $("#editForm").attr("action", url);
             });
