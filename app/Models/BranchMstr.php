@@ -29,6 +29,7 @@ class BranchMstr extends Model
         'branch_mstr_sosmed2',
         'branch_mstr_sosmed3',
         'branch_mstr_sosmed4',
+
         'branch_mstr_img',
         'branch_mstr_profile',
         'branch_mstr_cb',

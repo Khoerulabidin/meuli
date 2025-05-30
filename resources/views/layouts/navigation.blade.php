@@ -62,6 +62,11 @@
                 <i class="bi bi-boxes"></i>
                 <span>Master</span>
             </a>
+            <ul class="submenu">
+                <li class="submenu-item">
+                    <a href="{{ route('BranchMstrs.index') }}" class="submenu-link">Branch Master</a>
+                </li>
+            </ul>
 
             <ul class="submenu">
                 <li class="submenu-item">
@@ -72,6 +77,12 @@
                 </li>
             </ul>
 
+
+        <li class="sidebar-item has-sub">
+            <a href="#" class="sidebar-link">
+                <i class="bi bi-boxes"></i>
+                <span>Transaction History</span>
+            </a>
         </li>
         {{-- @endrole --}}
 

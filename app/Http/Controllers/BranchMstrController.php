@@ -13,7 +13,7 @@ class BranchMstrController extends Controller
      */
     public function index()
     {
-        //
+        return view('BranchMstr.index');
     }
 
     /**
