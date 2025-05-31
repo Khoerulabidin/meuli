@@ -103,7 +103,7 @@
     {{-- sweetalert --}}
     <script src="{{ url('assets/extensions/sweetalert2/sweetalert2.min.js') }}"></script>
     <script src="{{ url('assets/static/js/pages/sweetalert2.js') }}"></script>
-    @stack('scripts')
+    {{-- @stack('scripts') --}}
 
     <!-- Need: Apexcharts -->
     <script src="{{ url('assets/extensions/apexcharts/apexcharts.min.js') }}"></script>
