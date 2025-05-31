@@ -56,13 +56,31 @@
         </li>
 
         {{-- @role(['Super Admin', 'Admin']) --}}
-        <li class="sidebar-item has-sub">
+        <li
+            class="sidebar-item has-sub {{ Route::is('CodeMstrList') || Route::is('TableMstrList') ? 'active' : '' }}">
             <a href="#" class="sidebar-link">
                 <i class="bi bi-boxes"></i>
                 <span>Master</span>
             </a>
+            <ul class="submenu">
+                <li class="submenu-item">
+                    <a href="{{ route('BranchMstrs.index') }}" class="submenu-link">Branch Master</a>
+                </li>
+                <li class="submenu-item">
+                    <a href="{{ route('CodeMstrList') }}" class="submenu-link">Code Master</a>
+                </li>
+                <li class="submenu-item">
+                    <a href="{{ route('TableMstrList') }}" class="submenu-link">Table Master</a>
+                </li>
+            </ul>
+        </li>
 
 
+        <li class="sidebar-item has-sub">
+            <a href="#" class="sidebar-link">
+                <i class="bi bi-boxes"></i>
+                <span>Transaction History</span>
+            </a>
         </li>
         {{-- @endrole --}}
 

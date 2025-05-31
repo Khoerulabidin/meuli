@@ -1,5 +1,10 @@
 <?php
 
+
+use App\Http\Controllers\CodeMstrController;
+use App\Http\Controllers\BranchMstrController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TableMstrController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CodeMstrController;
@@ -24,7 +29,9 @@ Route::middleware('auth')->group(function () {
     // code master
     Route::resource('CodeMstrs', CodeMstrController::class);
     Route::get('CodeMstrList', [CodeMstrController::class, 'index'])->name('CodeMstrList');
+
     Route::get('CodeMstr/{codemasterId}/delete', [App\Http\Controllers\CodeMstrController::class, 'destroy']);
+
 
     // item Master
     Route::resource('ItemMstrs', ItemMstrController::class);
@@ -46,6 +53,18 @@ Route::middleware('auth')->group(function () {
     Route::resource('CostHists', CostHistController::class);
     Route::get('CostHistList', [CostHistController::class, 'index'])->name('CostHistList');
     Route::get('CostHist/{CostHistid}/delete', [CostHistController::class, 'destroy']);
+
+    // Branch Master
+    Route::resource('BranchMstrs', BranchMstrController::class);
+
+    Route::get('CodeMstr/{codemasterId}/delete', [CodeMstrController::class, 'destroy']);
+
+    // table master
+    Route::resource('TableMstrs', TableMstrController::class);
+    Route::get('TableMstrList', [TableMstrController::class, 'index'])->name('TableMstrList');
+    Route::get('TableMstr/{codemasterId}/delete', [TableMstrController::class, 'destroy']);
+
+
 });
 
 

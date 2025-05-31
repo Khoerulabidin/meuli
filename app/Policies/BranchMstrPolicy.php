@@ -29,7 +29,7 @@ class BranchMstrPolicy
      */
     public function create(User $user): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -37,7 +37,7 @@ class BranchMstrPolicy
      */
     public function update(User $user, BranchMstr $branchMstr): bool
     {
-        return false;
+        return true;
     }
 
     /**

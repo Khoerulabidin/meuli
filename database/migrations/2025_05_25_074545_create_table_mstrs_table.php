@@ -12,10 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('table_mstr', function (Blueprint $table) {
-            $table->bigIncrements('tabel_mstr_id');
+            $table->bigIncrements('table_mstr_id');
             $table->uuid('table_mstr_uuid')->unique()->nullable();
+            $table->string('table_mstr_name')->nullable();
+            $table->string('table_mstr_desc')->nullable();
             $table->string('table_mstr_barcode')->nullable();
-            $table->boolean('table_mstr_status')->default(1); // booked or available
+            $table->string('table_mstr_status')->default(1); // reserved or available
             $table->string('table_mstr_branch')->nullable();
             $table->bigInteger('table_mstr_cb')->nullable();
             $table->timestamp('table_mstr_ct')->nullable();
