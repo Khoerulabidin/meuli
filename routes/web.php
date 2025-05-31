@@ -1,21 +1,22 @@
 <?php
 
-
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CodeMstrController;
 use App\Http\Controllers\BranchMstrController;
+use App\Http\Controllers\CoMstrController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TableMstrController;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\CodeMstrController;
 use App\Http\Controllers\CostHistController;
 use App\Http\Controllers\ItemMstrController;
 use App\Http\Controllers\PriceDetController;
 use App\Http\Controllers\PriceMstrController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+Route::get('/', [CoMstrController::class, 'index']);
+Route::post('/CoMstr', [CoMstrController::class, 'store'])->name('CoMstr.store');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -63,8 +64,6 @@ Route::middleware('auth')->group(function () {
     Route::resource('TableMstrs', TableMstrController::class);
     Route::get('TableMstrList', [TableMstrController::class, 'index'])->name('TableMstrList');
     Route::get('TableMstr/{codemasterId}/delete', [TableMstrController::class, 'destroy']);
-
-
 });
 
 

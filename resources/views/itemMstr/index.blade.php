@@ -68,7 +68,26 @@
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $r->item_mstr_code }}</td>
                                             <td>{{ $r->item_mstr_desc }}</td>
-                                            <td>{{ $r->item_mstr_spec }}</td>
+                                            <td>
+                                                @if (is_array($r->item_mstr_spec) && !empty($r->item_mstr_spec))
+                                                    <ul class="list-unstyled mb-0 small"> {{-- Gunakan class Bootstrap untuk styling --}}
+                                                        @foreach ($r->item_mstr_spec as $key => $value)
+                                                            <li>
+                                                                <strong>{{ ucfirst(str_replace('_', ' ', $key)) }}:</strong>
+                                                                @if (is_array($value))
+                                                                    {{ implode(', ', $value) }}
+                                                                @elseif (is_bool($value))
+                                                                    {{ $value ? 'Ya' : 'Tidak' }}
+                                                                @else
+                                                                    {{ $value }}
+                                                                @endif
+                                                            </li>
+                                                        @endforeach
+                                                    </ul>
+                                                @else
+                                                    -
+                                                @endif
+                                            </td>
                                             <td>{{ $r->cat->code_mstr_cmmt }}</td>
                                             <td>{{ $r->um->code_mstr_cmmt }}</td>
                                             <td>{{ $r->item_mstr_status }}</td>
@@ -81,7 +100,7 @@
                                                         data-desc="{{ $r->item_mstr_desc }}"
                                                         data-cat="{{ $r->item_mstr_cat }}"
                                                         data-um="{{ $r->ef_Um }}"
-                                                        data-spec="{{ $r->item_mstr_spec }}"
+                                                        data-spec="{{ json_encode($r->item_mstr_spec) }}"
                                                         data-url="{{ url('ItemMstrs/' . $r->item_mstr_id) }}"
                                                         data-bs-toggle="modal" data-bs-target="#editModal">
                                                         <i class="bi bi-pencil-square"></i> Edit

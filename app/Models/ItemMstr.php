@@ -82,6 +82,6 @@ class ItemMstr extends Model
 
     public function um()
     {
-        return $this->belongsTo(CodeMstr::class, 'item_mstr_um', 'code_mstr_value')->where('code_mstr_fldname', 'item_um');
+        return $this->belongsTo(CodeMstr::class, 'item_mstr_um', 'code_mstr_value')->where('code_mstr_fldname', 'item_um')->withDefault();
     }
 }

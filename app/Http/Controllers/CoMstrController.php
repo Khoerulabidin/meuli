@@ -5,15 +5,28 @@ namespace App\Http\Controllers;
 use App\Models\CoMstr;
 use App\Http\Requests\StoreCoMstrRequest;
 use App\Http\Requests\UpdateCoMstrRequest;
+use App\Models\ItemMstr;
 
 class CoMstrController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
+
+    protected $path = 'CoMstr';
+    protected $route = 'CoMstrList';
+
     public function index()
     {
-        //
+        $itemMstr = ItemMstr::orderBy('item_mstr_code', 'asc')
+            ->get()
+            ->map(function ($item) {
+                if (is_string($item->item_mstr_spec)) {
+                    $item->item_mstr_spec = json_decode($item->item_mstr_spec, true);
+                }
+                return $item;
+            });
+        return view($this->path . '.index', compact(['itemMstr']));
     }
 
     /**
@@ -29,7 +42,7 @@ class CoMstrController extends Controller
      */
     public function store(StoreCoMstrRequest $request)
     {
-        //
+        dd($request->all());
     }
 
     /**
