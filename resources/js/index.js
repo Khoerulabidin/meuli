@@ -15,9 +15,7 @@ function initDtClient(tableName) {
             lengthMenu: [10, 25, 50, 100],
             scrollY: 350,
             // scrollX: true,
-            order: [
-                [0, "asc"]
-            ],
+            order: [[0, "asc"]],
             rowCallback: function (row, data) {
                 $(row).find("td").css({
                     padding: "4px 8px",

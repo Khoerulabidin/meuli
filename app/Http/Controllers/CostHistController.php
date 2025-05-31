@@ -13,7 +13,8 @@ class CostHistController extends Controller
      */
     public function index()
     {
-        //
+        $costHists = CostHist::query()->with('userMstr')->get();
+        return view('costHist.index', compact('costHists'));
     }
 
     /**

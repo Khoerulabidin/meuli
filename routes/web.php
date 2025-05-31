@@ -1,10 +1,17 @@
 <?php
 
+
 use App\Http\Controllers\CodeMstrController;
 use App\Http\Controllers\BranchMstrController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TableMstrController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\CodeMstrController;
+use App\Http\Controllers\CostHistController;
+use App\Http\Controllers\ItemMstrController;
+use App\Http\Controllers\PriceDetController;
+use App\Http\Controllers\PriceMstrController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -25,6 +32,28 @@ Route::middleware('auth')->group(function () {
 
     Route::get('CodeMstr/{codemasterId}/delete', [App\Http\Controllers\CodeMstrController::class, 'destroy']);
 
+
+    // item Master
+    Route::resource('ItemMstrs', ItemMstrController::class);
+    Route::get('ItemMstrList', [ItemMstrController::class, 'index'])->name('ItemMstrList');
+    Route::get('ItemMstr/{itemmstrid}/delete', [ItemMstrController::class, 'destroy']);
+
+    //price master
+    Route::resource('PriceMstrs', PriceMstrController::class);
+    Route::get('PriceMstrList', [PriceMstrController::class, 'index'])->name('PriceMstrList');
+    Route::get('PriceMstr/{PriceMstrid}/delete', [PriceMstrController::class, 'destroy']);
+    Route::get('PriceMstr/{PriceMstrid}/show', [PriceMstrController::class, 'show']);
+
+    //price detail
+    Route::resource('PriceDets', PriceDetController::class);
+    Route::get('PriceDetList', [PriceDetController::class, 'index'])->name('PriceDetList');
+    Route::get('PriceDet/{PriceDetid}/delete', [PriceDetController::class, 'destroy']);
+
+    //price master
+    Route::resource('CostHists', CostHistController::class);
+    Route::get('CostHistList', [CostHistController::class, 'index'])->name('CostHistList');
+    Route::get('CostHist/{CostHistid}/delete', [CostHistController::class, 'destroy']);
+
     // Branch Master
     Route::resource('BranchMstrs', BranchMstrController::class);
 
@@ -35,7 +64,11 @@ Route::middleware('auth')->group(function () {
     Route::get('TableMstrList', [TableMstrController::class, 'index'])->name('TableMstrList');
     Route::get('TableMstr/{codemasterId}/delete', [TableMstrController::class, 'destroy']);
 
+
 });
+
+
+Route::middleware('auth')->group(function () {});
 
 
 
