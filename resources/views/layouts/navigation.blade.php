@@ -76,8 +76,8 @@
         </li>
 
 
-        <li class="sidebar-item has-sub">
-            <a href="#" class="sidebar-link">
+        <li class="sidebar-item">
+            <a href="{{ route('TrHists.index') }}" class="sidebar-link">
                 <i class="bi bi-boxes"></i>
                 <span>Transaction History</span>
             </a>

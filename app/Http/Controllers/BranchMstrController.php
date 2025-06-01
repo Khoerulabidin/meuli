@@ -80,7 +80,7 @@ class BranchMstrController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateBranchMstrRequest $request, BranchMstr $branchMstr)
+    public function update(UpdateBranchMstrRequest $request, BranchMstr $branchMstr, $id)
     {
         // dd($request->all());
         // $id = Auth::user()->user_mstr_id;
@@ -107,8 +107,11 @@ class BranchMstrController extends Controller
         $validated = $request->validated(); 
     
         $validated['branch_mstr_cb'] = Auth::user()->user_mstr_id;
+        // dd($validated);
+        // dd($branchMstr->getAttributes());
 
-        $branchMstr->update($validated);
+        $branch = BranchMstr::findOrFail($id);
+        $branch->update($validated);
 
         return redirect($this->route)->with('success', 'Cabang berhasil diperbarui.');
     }

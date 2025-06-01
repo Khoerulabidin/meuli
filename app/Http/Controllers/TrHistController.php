@@ -3,17 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Models\TrHist;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreTrHistRequest;
 use App\Http\Requests\UpdateTrHistRequest;
 
 class TrHistController extends Controller
 {
+    protected $path = 'TrHists';
+    protected $route = 'TrHists';
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        $trHists = TrHist::all();
+        return view('TrHist.index', compact('trHists'));
     }
 
     /**
@@ -37,7 +41,7 @@ class TrHistController extends Controller
      */
     public function show(TrHist $trHist)
     {
-        //
+        return redirect($this->route);
     }
 
     /**
@@ -61,6 +65,7 @@ class TrHistController extends Controller
      */
     public function destroy(TrHist $trHist)
     {
-        //
+        $trhist->delete();
+        return redirect($this->route)->with('success', 'Tr hist berhasil dihapus.');
     }
 }

@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CodeMstrController;
 use App\Http\Controllers\BranchMstrController;
+use App\Http\Controllers\TrHistController;
 use App\Http\Controllers\CoMstrController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TableMstrController;
@@ -57,6 +58,9 @@ Route::middleware('auth')->group(function () {
 
     // Branch Master
     Route::resource('BranchMstrs', BranchMstrController::class);
+
+    // Tr Hist
+    Route::resource('TrHists', TrHistController::class);
 
     Route::get('CodeMstr/{codemasterId}/delete', [CodeMstrController::class, 'destroy']);
 
