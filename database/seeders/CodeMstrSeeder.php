@@ -16,39 +16,39 @@ class CodeMstrSeeder extends Seeder
     public function run()
     {
         $codeMasters = [
-            // --- Kategori Produk (product_category) ---
+            // --- Kategori Produk (item_cat) ---
             [
-                'code_mstr_fldname' => 'product_category',
+                'code_mstr_fldname' => 'item_cat',
                 'code_mstr_value'   => 'coffee_hot',
                 'code_mstr_cmmt'    => 'Kopi Panas',
                 'code_mstr_cb'      => 1,
             ],
             [
-                'code_mstr_fldname' => 'product_category',
+                'code_mstr_fldname' => 'item_cat',
                 'code_mstr_value'   => 'coffee_iced',
                 'code_mstr_cmmt'    => 'Kopi Dingin',
                 'code_mstr_cb'      => 2,
             ],
             [
-                'code_mstr_fldname' => 'product_category',
+                'code_mstr_fldname' => 'item_cat',
                 'code_mstr_value'   => 'non_coffee',
                 'code_mstr_cmmt'    => 'Non-Kopi',
                 'code_mstr_cb'      => 3,
             ],
             [
-                'code_mstr_fldname' => 'product_category',
+                'code_mstr_fldname' => 'item_cat',
                 'code_mstr_value'   => 'food_main',
                 'code_mstr_cmmt'    => 'Makanan Utama',
                 'code_mstr_cb'      => 3,
             ],
             [
-                'code_mstr_fldname' => 'product_category',
+                'code_mstr_fldname' => 'item_cat',
                 'code_mstr_value'   => 'food_snack',
                 'code_mstr_cmmt'    => 'Cemilan',
                 'code_mstr_cb'      => 2,
             ],
             [
-                'code_mstr_fldname' => 'product_category',
+                'code_mstr_fldname' => 'item_cat',
                 'code_mstr_value'   => 'dessert',
                 'code_mstr_cmmt'    => 'Dessert',
                 'code_mstr_cb'      => 1,

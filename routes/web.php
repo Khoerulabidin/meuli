@@ -11,6 +11,7 @@ use App\Http\Controllers\CostHistController;
 use App\Http\Controllers\ItemMstrController;
 use App\Http\Controllers\PriceDetController;
 use App\Http\Controllers\PriceMstrController;
+use App\Http\Controllers\StockDetController;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -31,7 +32,6 @@ Route::middleware('auth')->group(function () {
     // code master
     Route::resource('CodeMstrs', CodeMstrController::class);
     Route::get('CodeMstrList', [CodeMstrController::class, 'index'])->name('CodeMstrList');
-
     Route::get('CodeMstr/{codemasterId}/delete', [App\Http\Controllers\CodeMstrController::class, 'destroy']);
 
 
@@ -62,12 +62,15 @@ Route::middleware('auth')->group(function () {
     // Tr Hist
     Route::resource('TrHists', TrHistController::class);
 
-    Route::get('CodeMstr/{codemasterId}/delete', [CodeMstrController::class, 'destroy']);
-
     // table master
     Route::resource('TableMstrs', TableMstrController::class);
     Route::get('TableMstrList', [TableMstrController::class, 'index'])->name('TableMstrList');
-    Route::get('TableMstr/{codemasterId}/delete', [TableMstrController::class, 'destroy']);
+    Route::get('TableMstr/{tableMstrId}/delete', [TableMstrController::class, 'destroy']);
+
+    // code master
+    Route::resource('StockDets', StockDetController::class);
+    Route::get('StockDetList', [StockDetController::class, 'index'])->name('StockDetList');
+    Route::get('StockDet/{stockDetUuid}/delete', [StockDetController::class, 'destroy']);
 });
 
 

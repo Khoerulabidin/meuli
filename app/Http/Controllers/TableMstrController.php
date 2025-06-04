@@ -40,12 +40,9 @@ class TableMstrController extends Controller
             $id = Auth::user()->user_mstr_id;
             $data = $request->validate(TableMstr::rules());
             $status = "available";
-            TableMstr::validateUnique($data);
-
             TableMstr::create([
                 'table_mstr_name' => $request->table_mstr_name,
                 'table_mstr_desc' => $request->table_mstr_desc,
-                'table_mstr_barcode' => $request->table_mstr_barcode,
                 'table_mstr_status' => $status,
                 'table_mstr_branch' => $request->table_mstr_branch,
                 'table_mstr_cb' => $id,
@@ -89,8 +86,6 @@ class TableMstrController extends Controller
         ]);
         $id = Auth::user()->user_mstr_id;
         $data = $request->validate(TableMstr::rules());
-
-        TableMstr::validateUnique($data, $tablemstr->table_mstr_id);
 
         $data = [
             'table_mstr_name' => $request->table_mstr_name,

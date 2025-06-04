@@ -8,12 +8,18 @@ use App\Http\Requests\UpdateStockDetRequest;
 
 class StockDetController extends Controller
 {
+
+    protected $path = 'StockDet';
+    protected $route = 'StockDetList';
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        $stockDets = StockDet::with(['itemMstr.um', 'userMstr'])
+            ->orderBy('stock_det_item')
+            ->get();
+        return view($this->path . '.index', compact('stockDets'));
     }
 
     /**

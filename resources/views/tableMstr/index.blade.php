@@ -36,8 +36,8 @@
                     <div
                         class="card-header bg-primary text-white d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center">
                         <div class="mb-2 mb-md-0">
-                            <h4 class="card-title mb-0">Table Master Data</h4>
-                            <p class="card-subtitle mb-0">Manage your table master entries</p>
+                            <h4 class="card-title mb-0">List of Table Master</h4>
+                            <p class="card-subtitle mb-0">Daftar meja yang terdaftar beserta QR Code untuk diunduh.</p>
                         </div>
                         <div class="ms-md-auto">
                             <button type="button" class="btn btn-outline-white btn-sm" data-bs-toggle="modal"
@@ -47,53 +47,62 @@
                         </div>
                     </div>
                     <div class="card-body mt-2">
-                        <div class="table-responsive">
-                            <table class="table table-striped table-hover table-bordered" id="table1">
-                                <thead class="table-light">
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Description</th>
-                                        <th>Barcode</th>
-                                        <th>Status</th>
-                                        <th>Branch</th>
-                                        <th>Created By</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($tableMstrs as $r)
-                                        <tr>
-                                            <td>{{ $r->table_mstr_name }}</td>
-                                            <td>{{ $r->table_mstr_desc }}</td>
-                                            <td>{{ $r->table_mstr_barcode }}</td>
-                                            <td>{{ $r->table_mstr_status }}</td>
-                                            <td>{{ $r->branchMstr->branch_mstr_name }}</td>
-                                            <td>{{ $r->userMstr->user_mstr_name }}</td>
-                                            <td>
-                                                <div class="btn-group" role="group" aria-label="Basic action">
-                                                    <button class="btn btn-sm btn-outline-primary editButton"
-                                                        data-id="{{ $r->table_mstr_id }}"
-                                                        data-name="{{ $r->table_mstr_name }}"
-                                                        data-desc="{{ $r->table_mstr_desc }}"
-                                                        data-barcode="{{ $r->table_mstr_barcode }}"
-                                                        data-branch="{{ $r->table_mstr_branch }}"
-                                                        data-status="{{ $r->table_mstr_status }}"
-                                                        data-url="{{ url('TableMstrs/' . $r->table_mstr_id) }}"
+                        <div class="row g-4">
+                            @forelse ($tableMstrs as $table)
+                                <div class="col-xl-3 col-lg-4 col-md-6">
+                                    <div class="card h-100 shadow-sm">
+                                        <div class="card-body d-flex flex-column">
+                                            <div class="text-center">
+                                                <div class="p-3">
+                                                    <img src="{{ asset('storage/' . $table->table_mstr_barcode) }}"
+                                                        alt="QR Code for {{ $table->table_mstr_name }}"
+                                                        class="img-fluid rounded">
+                                                </div>
+                                                <h5 class="card-title mt-2">{{ $table->table_mstr_name }}</h5>
+                                                <p class="card-text small text-muted">{{ $table->table_mstr_desc }}</p>
+                                            </div>
+
+                                            <div class="mt-auto pt-3">
+                                                <div class="d-grid mb-2">
+                                                    <a href="{{ asset('storage/' . $table->table_mstr_barcode) }}"
+                                                        class="btn btn-outline-primary"
+                                                        download="qr-code-{{ Str::slug($table->table_mstr_name) }}.svg">
+                                                        <i class="bi bi-download"></i> Unduh QR
+                                                    </a>
+                                                </div>
+
+                                                <div class="btn-group w-100" role="group" aria-label="Aksi Meja">
+                                                    <button class="btn btn-sm btn-outline-secondary editButton"
+                                                        data-id="{{ $table->table_mstr_id }}"
+                                                        data-name="{{ $table->table_mstr_name }}"
+                                                        data-desc="{{ $table->table_mstr_desc }}"
+                                                        data-barcode="{{ $table->table_mstr_barcode }}"
+                                                        data-branch="{{ $table->table_mstr_branch }}"
+                                                        data-status="{{ $table->table_mstr_status }}"
+                                                        data-url="{{ url('TableMstrs/' . $table->table_mstr_id) }}"
                                                         data-bs-toggle="modal" data-bs-target="#editModal">
                                                         <i class="bi bi-pencil-square"></i> Edit
                                                     </button>
 
-                                                    <a href="{{ url('TableMstr/' . $r->table_mstr_id . '/delete') }}"
+                                                    <a href="{{ url('TableMstrs/' . $table->table_mstr_id . '/delete') }}"
                                                         class="btn btn-sm btn-outline-danger deleteButton"
-                                                        onclick="return confirm('Are you sure you want to delete this item?')">
-                                                        <i class="bi bi-trash"></i> Delete
+                                                        onclick="return confirm('Anda yakin ingin menghapus meja \'{{ $table->table_mstr_name }}\'?')">
+                                                        <i class="bi bi-trash"></i> Hapus
                                                     </a>
                                                 </div>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @empty
+                                <div class="col-12">
+                                    <div class="alert alert-info text-center">
+                                        <h4>Belum Ada Meja</h4>
+                                        <p>Silakan tambahkan data meja terlebih dahulu untuk melihat QR Code di sini.
+                                        </p>
+                                    </div>
+                                </div>
+                            @endforelse
                         </div>
                     </div>
                 </div>
@@ -216,7 +225,7 @@
 
                                 <input type="text" name="ef_barcode" id="ef_barcode"
                                     class="{!! Config('app.inputForm') !!}" placeholder="" required=""
-                                    value="{{ old('ef_barcode') }}">
+                                    value="{{ old('ef_barcode') }}" readonly>
                             </div>
                             <div class="col-sm-12 col-md-6">
                                 <label for="ef_status" class="form-label">

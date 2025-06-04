@@ -4,7 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 class TableMstr extends Model
 {
@@ -29,8 +31,36 @@ class TableMstr extends Model
     public static function boot()
     {
         parent::boot();
-        static::creating(function ($model) {
-            $model->table_mstr_uuid = Str::uuid();
+
+        static::creating(function ($tableMstr) {
+            $tableMstr->table_mstr_uuid = Str::uuid();
+            $qrCodePath = 'qrcodes/' . $tableMstr->table_mstr_uuid . '.svg';
+
+            $directory = storage_path('app/public/qrcodes');
+            if (!file_exists($directory)) {
+                mkdir($directory, 0775, true);
+            }
+
+            $fullUrl = url('/?table=' . $tableMstr->table_mstr_uuid);
+
+            QrCode::format('svg')
+                ->size(300)
+                ->style('round')
+                ->eye('circle')
+                ->gradient(10, 80, 160, 100, 180, 220, 'diagonal')
+                ->margin(1)
+                ->generate(
+                    $fullUrl,
+                    storage_path('app/public/' . $qrCodePath)
+                );
+
+            $tableMstr->table_mstr_barcode = $qrCodePath;
+        });
+
+        static::deleting(function ($tableMstr) {
+            if ($tableMstr->table_mstr_barcode) {
+                Storage::disk('public')->delete($tableMstr->table_mstr_barcode);
+            }
         });
     }
 
@@ -39,25 +69,8 @@ class TableMstr extends Model
         return [
             'table_mstr_name' => 'required|string|max:255',
             'table_mstr_desc' => 'nullable|string|max:500',
-            'table_mstr_barcode' => 'required|string|max:255',
             'table_mstr_branch' => 'nullable|string|max:255',
         ];
-    }
-
-    public static function validateUnique($data, $id = null)
-    {
-        $query = self::where('table_mstr_branch', $data['table_mstr_branch'])
-            ->where('table_mstr_barcode', $data['table_mstr_barcode']);
-
-        if ($id) {
-            $query->where('table_mstr_id', '!=', $id);
-        }
-
-        $exists = $query->exists();
-
-        if ($exists) {
-            throw new \Exception('The combination of table_mstr_name and table_mstr_barcode must be unique.');
-        }
     }
 
     public function branchMstr()
